@@ -3,24 +3,20 @@
    ============================ */
 
 /* ---------- GLOBAL ---------- */
-* { transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease; }
-
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #f5f0eb; }
 ::-webkit-scrollbar-thumb { background: #CCAF8D; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #b89a75; }
 
-/* Better text contrast */
-body { color: #1a1a1a; }
-p, span, li, td, th { color: inherit; }
-
 /* Smooth scroll */
 html { scroll-behavior: smooth; }
 
 /* Links */
 a { transition: color 0.3s ease, opacity 0.3s ease; }
-a:hover { opacity: 0.85; }
+
+/* Selection color */
+::selection { background: #CCAF8D; color: #fff; }
 
 /* ---------- HEADER ---------- */
 .header {
@@ -39,7 +35,7 @@ a:hover { opacity: 0.85; }
 }
 
 /* Header nav links */
-.header__nav a, .header__nav-item {
+.header__nav a, .header__nav-item > a {
     position: relative;
     transition: color 0.3s ease;
 }
@@ -74,64 +70,71 @@ ul.products li.product:hover {
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
 }
 
-/* Product image */
-.products .product img,
-ul.products li.product img {
+/* Product image in catalog */
+.products .product img.attachment-woocommerce_thumbnail,
+ul.products li.product img.attachment-woocommerce_thumbnail {
     transition: transform 0.5s ease;
 }
-.products .product:hover img,
-ul.products li.product:hover img {
+.products .product:hover img.attachment-woocommerce_thumbnail,
+ul.products li.product:hover img.attachment-woocommerce_thumbnail {
     transform: scale(1.04);
 }
 
-/* Product title */
-.woocommerce-loop-product__title,
+/* FIX: Product title visible */
+.products .product .woocommerce-loop-product__title,
+ul.products li.product .woocommerce-loop-product__title,
 .woocommerce-loop-product__title {
-    font-size: 15px;
-    font-weight: 500;
-    padding: 10px 12px 5px;
-    line-height: 1.4;
-    color: #2c2c2c;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    padding: 12px 14px 6px !important;
+    line-height: 1.4 !important;
+    color: #2c2c2c !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 40px;
 }
 
-/* Product price */
+/* Product price in catalog */
 .products .product .price,
-ul.products li.product .price {
-    font-size: 17px;
-    font-weight: 700;
-    color: #CCAF8D;
-    padding: 0 12px;
-}
+ul.products li.product .price,
 .products .product .price .woocommerce-Price-amount,
-ul.products li.product .price .woocommerce-Price-amount {
-    color: #CCAF8D;
-    font-weight: 700;
+ul.products li.product .price .woocommerce-Price-amount,
+.products .product .price bdi,
+ul.products li.product .price bdi {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    padding: 0 14px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Product price currency */
+.products .woocommerce-Price-currencySymbol {
+    color: #999 !important;
+    font-weight: 400 !important;
 }
 
 /* Add to cart button */
 .products .product .button,
 ul.products li.product .add_to_cart_button {
-    background: linear-gradient(135deg, #CCAF8D 0%, #b89a75 100%);
-    color: #fff;
-    border: none;
+    background: linear-gradient(135deg, #CCAF8D 0%, #b89a75 100%) !important;
+    color: #fff !important;
+    border: none !important;
     border-radius: 6px;
-    padding: 8px 16px;
-    margin: 8px 12px 0;
-    font-size: 13px;
+    padding: 10px 16px;
+    margin: 10px 14px 0;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
-    opacity: 0;
-    transform: translateY(10px);
-}
-.products .product:hover .button,
-ul.products li.product:hover .add_to_cart_button {
-    opacity: 1;
-    transform: translateY(0);
+    display: block !important;
 }
 .products .product .button:hover,
 ul.products li.product .add_to_cart_button:hover {
-    background: linear-gradient(135deg, #b89a75 0%, #a68862 100%);
+    background: linear-gradient(135deg, #b89a75 0%, #a68862 100%) !important;
     box-shadow: 0 4px 15px rgba(204, 175, 141, 0.4);
 }
 
@@ -147,7 +150,7 @@ h1.product_title,
     font-weight: 400;
     line-height: 1.3;
     margin-bottom: 10px;
-    color: #1a1a1a;
+    color: #1a1a1a !important;
 }
 
 /* Price on single product */
@@ -172,7 +175,7 @@ h1.product_title,
     transform: scale(1.02);
 }
 
-/* Product attributes / characteristics */
+/* Product specs block */
 .productcard-section__info .excerpt-block {
     background: #faf7f3;
     border-radius: 8px;
@@ -211,6 +214,28 @@ h1.product_title,
     transform: scale(1.15);
 }
 
+/* Product image gallery thumbnails */
+.woocommerce-product-gallery .flex-control-thumbs li img {
+    border-radius: 6px;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease, opacity 0.3s ease;
+}
+.woocommerce-product-gallery .flex-control-thumbs li img:hover,
+.woocommerce-product-gallery .flex-control-thumbs li img.flex-active {
+    border-color: #CCAF8D;
+    opacity: 1;
+}
+
+/* Product tabs / description */
+.woocommerce-tabs .tabs li a {
+    color: #666;
+    transition: color 0.3s ease;
+}
+.woocommerce-tabs .tabs li.active a,
+.woocommerce-tabs .tabs li a:hover {
+    color: #CCAF8D;
+}
+
 /* ---------- FILTER ICONS (Огранка) ---------- */
 .bapf_img_span {
     border-radius: 50%;
@@ -222,13 +247,10 @@ h1.product_title,
     box-shadow: 0 4px 15px rgba(204, 175, 141, 0.3);
     border-color: #CCAF8D;
 }
-
-/* Filter text labels */
 .bapf_clr_text {
     font-size: 13px;
     transition: color 0.3s ease;
 }
-.bapf_img_span:hover + .bapf_clr_text,
 li:hover .bapf_clr_text {
     color: #CCAF8D;
 }
@@ -238,15 +260,12 @@ li:hover .bapf_clr_text {
     background: linear-gradient(180deg, #3d3a3a 0%, #2a2828 100%);
     border-top: 3px solid #CCAF8D;
 }
-
 .footer a {
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: color 0.3s ease;
 }
 .footer a:hover {
     color: #CCAF8D !important;
 }
-
-/* Social icons in footer */
 .footer__social a,
 .footer .social a {
     display: inline-flex;
@@ -277,7 +296,7 @@ li:hover .bapf_clr_text {
     text-decoration: underline;
 }
 
-/* ---------- WHATSAPP MODAL (improved) ---------- */
+/* ---------- WHATSAPP MODAL ---------- */
 .wa-modal {
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
@@ -350,6 +369,7 @@ li:hover .bapf_clr_text {
     letter-spacing: 4px;
     position: relative;
     padding-bottom: 15px;
+    color: #1a1a1a !important;
 }
 .woocommerce-products-header__title::after,
 .page-title::after {
@@ -403,18 +423,138 @@ li:hover .bapf_clr_text {
     box-shadow: 0 0 0 3px rgba(204, 175, 141, 0.15);
 }
 
-/* ---------- MOBILE IMPROVEMENTS ---------- */
+/* ---------- HOMEPAGE SECTIONS ---------- */
+/* Section headings */
+.section-stones h2,
+.katalog-section h2,
+.new-items h2,
+section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 3px;
+}
+
+/* Category cards on homepage */
+.katalog-section__item,
+.section-stones__item {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.katalog-section__item:hover,
+.section-stones__item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Homepage banner/hero */
+.fv {
+    position: relative;
+}
+.fv::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to top, #fff9f3, transparent);
+    pointer-events: none;
+}
+
+/* ---------- BLOG CARDS ---------- */
+.blog-card, .post {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.blog-card:hover, .post:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- FORMS GENERAL ---------- */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+textarea,
+select {
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus {
+    border-color: #CCAF8D;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(204, 175, 141, 0.12);
+}
+
+/* ---------- BACK TO TOP smooth ---------- */
+.back-to-top,
+.scroll-top {
+    background: #CCAF8D;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(204, 175, 141, 0.3);
+}
+.back-to-top:hover,
+.scroll-top:hover {
+    background: #b89a75;
+    transform: translateY(-3px);
+}
+
+/* ---------- LOADING ANIMATION for images ---------- */
+img {
+    transition: opacity 0.4s ease;
+}
+img[loading="lazy"] {
+    opacity: 0;
+}
+img[loading="lazy"].loaded,
+img[loading="lazy"][src] {
+    opacity: 1;
+}
+
+/* ---------- PAGINATION ---------- */
+.woocommerce-pagination .page-numbers,
+.pagination .page-numbers {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.woocommerce-pagination .page-numbers:hover,
+.pagination .page-numbers:hover {
+    background: #CCAF8D;
+    color: #fff;
+    border-color: #CCAF8D;
+}
+.woocommerce-pagination .page-numbers.current,
+.pagination .page-numbers.current {
+    background: #CCAF8D;
+    color: #fff;
+    border-color: #CCAF8D;
+}
+
+/* ---------- TOP BAR (address, phone) ---------- */
+.top-bar, .header__top {
+    font-size: 13px;
+    letter-spacing: 0.3px;
+}
+.top-bar a, .header__top a {
+    transition: color 0.3s ease;
+}
+.top-bar a:hover, .header__top a:hover {
+    color: #CCAF8D;
+}
+
+/* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
     .products .product,
     ul.products li.product {
         border-radius: 8px;
         margin-bottom: 15px;
-    }
-
-    .products .product .button,
-    ul.products li.product .add_to_cart_button {
-        opacity: 1;
-        transform: none;
     }
 
     h1.product_title {
@@ -424,5 +564,10 @@ li:hover .bapf_clr_text {
     .wa-modal-content {
         margin: 15px;
         padding: 25px !important;
+    }
+
+    .katalog-section__item:hover,
+    .section-stones__item:hover {
+        transform: none;
     }
 }
